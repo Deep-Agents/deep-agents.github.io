@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-slim
     steps:
     - name: Checkout code
+      if: github.event_name == 'pull_request'
       uses: actions/checkout@v3
     - name: Display info
+      if: github.event_name == 'pull_request'
       run: | 
         echo "pull request!"
         pwd
@@ -24,4 +26,4 @@ jobs:
       if: ${{ github.event_name == 'merge_group' }}
       run: |
         echo "Merge group!"
-        exit 0
+        exit 1
