@@ -5,7 +5,7 @@ on:
 
 jobs:
 
-  validate-pr:
+  validate-queue:
     if: ${{ github.event_name == 'merge_group' }}
     runs-on: ubuntu-slim
     steps:
