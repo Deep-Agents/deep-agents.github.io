@@ -21,18 +21,13 @@ jobs:
     - name: Run fast CI (emulated by a short sleep)
       run: sleep 5
 
-  validate-mg:
+  dummy-merge-queue:
     if: ${{ github.event_name == 'merge_group' }}
     runs-on: ubuntu-slim
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
     - name: Display info
       run: | 
-        echo "pull request!"
-        pwd
-        tree -a -I '.git'
-        git status
-    - name: Run queue CI (emulated by a medium sleep)
-      run: sleep 30
+        echo "This doesn't normally run!"
+    - name: How did we get here?
+      run: exit 1
 
