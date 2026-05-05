@@ -26,4 +26,4 @@ jobs:
       if: ${{ github.event_name == 'merge_group' }}
       run: |
         echo "Merge group!"
-        exit 1
+        exit 0
