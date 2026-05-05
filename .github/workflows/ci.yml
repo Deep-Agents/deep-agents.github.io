@@ -7,7 +7,6 @@ on:
 jobs:
 
   validate-pr:
-    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-slim
     steps:
     - name: Checkout code
@@ -19,15 +18,10 @@ jobs:
         tree -a -I '.git'
         git status
     - name: Run fast CI (emulated by a short sleep)
+      if: ${{ github.event_name == 'pull_request' }}
       run: sleep 5
-
-  dummy-merge-queue:
-    if: ${{ github.event_name == 'merge_group' }}
-    runs-on: ubuntu-slim
-    steps:
-    - name: Display info
-      run: | 
-        echo "This doesn't normally run!"
-    - name: How did we get here?
-      run: exit 1
-
+    - name: Run merge group stuff
+      if: ${{ github.event_name == 'merge_group' }}
+      run: |
+        echo "Merge group!"
+        exit 0
