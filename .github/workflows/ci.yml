@@ -2,6 +2,7 @@ name: Validate pull request before putting into queue
 
 on:
   pull_request:
+  merge_group:
 
 jobs:
 
@@ -19,3 +20,19 @@ jobs:
         git status
     - name: Run fast CI (emulated by a short sleep)
       run: sleep 5
+
+  validate-mg:
+    if: ${{ github.event_name == 'merge_group' }}
+    runs-on: ubuntu-slim
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Display info
+      run: | 
+        echo "pull request!"
+        pwd
+        tree -a -I '.git'
+        git status
+    - name: Run queue CI (emulated by a medium sleep)
+      run: sleep 30
+
