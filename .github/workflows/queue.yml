@@ -6,7 +6,6 @@ on:
 jobs:
 
   validate-queue:
-    if: ${{ github.event_name == 'merge_group' }}
     runs-on: ubuntu-slim
     steps:
     - name: Checkout code
@@ -18,4 +17,6 @@ jobs:
         tree -a -I '.git'
         git status
     - name: Run fast CI (emulated by a short sleep)
-      run: sleep 30
+      run: |
+        exit 1
+        sleep 30
